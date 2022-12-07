@@ -21,4 +21,16 @@ class ProductService extends Service
 
         return $data;
     }
+
+    public function get (string $id): array|false
+    {
+        $sql = 'SELECT * FROM producto WHERE cod = :id';
+
+        $query = $this->connection->prepare($sql);
+        $query->bindValue(':id', $id);
+
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
 }
