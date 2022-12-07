@@ -22,4 +22,16 @@ class StoreService extends Service
 
         return $data;
     }
+
+    public function get (string $id): array|false
+    {
+        $sql = 'SELECT * FROM tienda WHERE cod = :id';
+        $query = $this->connection->prepare($sql);
+
+        $query->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
 }

@@ -22,7 +22,25 @@ class StoreController extends Controller
 
     protected function processResourceRequest(string $method, string $id): void
     {
-        // TODO: Implement processResourceRequest() method.
+        $product = $this->service->get($id);
+        if (!$product)
+        {
+            http_response_code(404);
+            echo json_encode([
+                'msg' => 'Product not found'
+            ]);
+            return;
+        }
+
+        switch ($method)
+        {
+            case 'GET':
+                echo json_encode($product);
+                break;
+            default:
+                http_response_code(405);
+                header('Allow: GET');
+        }
     }
 
     protected function processCollectionRequest(string $method): void
