@@ -38,9 +38,8 @@ switch ($path[3])
         $controller = new ProductController($service);
         break;
     case 'stores':
-        echo json_encode([
-            'test' => 'tiendas'
-        ]);
+        $service = new StoreService($database);
+        $controller = new StoreController($service);
         break;
     case 'families':
         echo json_encode([
